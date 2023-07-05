@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "title": "Camiseta",
+    "description": "Camiseta de algodón de manga corta",
+    "price": 19.99,
+    "thumbnail": "https://example.com/camiseta.jpg",
+    "code": "C001",
+    "stock": 50
+  },
+  {
+    "id": "2",
+    "title": "Zapatillas",
+    "description": "Zapatillas deportivas para correr",
+    "price": 89.99,
+    "thumbnail": "https://example.com/zapatillas.jpg",
+    "code": "Z001",
+    "stock": 25
+  },
+  {
+    "id": "3",
+    "title": "Pantalón",
+    "description": "Pantalón de mezclilla",
+    "price": 49.99,
+    "thumbnail": "https://example.com/pantalon.jpg",
+    "code": "P002",
+    "stock": 40
+  },
+  {
+    "id": "4",
+    "title": "Blusa",
+    "description": "Blusa elegante de seda",
+    "price": 29.99,
+    "thumbnail": "https://example.com/blusa.jpg",
+    "code": "B001",
+    "stock": 30
+  },
+  {
+    "id": "5",
+    "title": "Reloj",
+    "description": "Reloj de pulsera de acero inoxidable",
+    "price": 99.99,
+    "thumbnail": "https://example.com/reloj.jpg",
+    "code": "R001",
+    "stock": 20
+  },
+  {
+    "id": "6",
+    "title": "Bolso",
+    "description": "Bolso de cuero con compartimentos",
+    "price": 79.99,
+    "thumbnail": "https://example.com/bolso.jpg",
+    "code": "B002",
+    "stock": 15
+  },
+  {
+    "id": "7",
+    "title": "Gafas de sol",
+    "description": "Gafas de sol polarizadas",
+    "price": 39.99,
+    "thumbnail": "https://example.com/gafas.jpg",
+    "code": "G001",
+    "stock": 35
+  },
+  {
+    "id": "8",
+    "title": "Vestido",
+    "description": "Vestido de fiesta",
+    "price": 69.99,
+    "thumbnail": "https://example.com/vestido.jpg",
+    "code": "V001",
+    "stock": 10
+  },
+  {
+    "id": "9",
+    "title": "Cartera",
+    "description": "Cartera de cuero con cierre",
+    "price": 49.99,
+    "thumbnail": "https://example.com/cartera.jpg",
+    "code": "C002",
+    "stock": 20
+  },
+  {
+    "id": "10",
+    "title": "Gorra",
+    "description": "Gorra deportiva ajustable",
+    "price": 24.99,
+    "thumbnail": "https://example.com/gorra.jpg",
+    "code": "G002",
+    "stock": 30
+  }
+]
