@@ -52,7 +52,7 @@ updateProduct(id, updatedProduct) {
       console.log('No se encontró el producto con el ID especificado.');
     }
   }
-  
+
 
   deleteProduct(id) {
     const index = this.products.findIndex(product => product.id === id);
