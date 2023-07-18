@@ -44,9 +44,23 @@ class CartManager {
     return cart;
   }
 
-  // Resto de los métodos de CartManager
+  addProductToCart(cartId, productId, quantity) {
+    const cart = this.getCartById(cartId);
+    if (cart) {
+      const existingProduct = cart.products.find((product) => product.product === productId);
+      if (existingProduct) {
+        existingProduct.quantity += quantity;
+      } else {
+        cart.products.push({ product: productId, quantity });
+      }
+      this.saveCartsToFile();
+      return cart.products;
+    } else {
+      throw new Error('El carrito no existe');
+    }
+  }
 
-  // ...
+  
 }
 
 export default CartManager;

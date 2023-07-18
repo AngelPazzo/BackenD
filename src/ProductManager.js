@@ -62,9 +62,9 @@ class ProductManager {
     return false;
   }
 
-  // Resto de los métodos de ProductManager
+  
 
-  // ...
+  
 }
 
 export default ProductManager;

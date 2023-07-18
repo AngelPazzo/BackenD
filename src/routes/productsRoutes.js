@@ -1,6 +1,6 @@
 import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import ProductManager from '../ProductManager.js';
-
 
 const router = express.Router();
 const productManager = new ProductManager();
@@ -24,18 +24,18 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const { title, description, code, price, status, stock, category, thumbnails } = req.body;
   const product = {
-    id: generateId(), // Generar el ID de forma adecuada según tu implementación
+    id: uuidv4(), 
     title,
     description,
     code,
     price,
-    status: status !== undefined ? status : true, // Valor por defecto true
+    status,
     stock,
     category,
     thumbnails
   };
   productManager.addProduct(product);
-  // Crear una nueva variable responseProduct y copiar todos los campos, excepto el campo "id"
+  
   const responseProduct = { ...product };
   delete responseProduct.id;
   res.status(201).json(responseProduct);

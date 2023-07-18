@@ -6,19 +6,19 @@ import cartRoutes from './routes/cartsRoutes.js';
 
 const app = express();
 
-// Middlewares
+
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
-// Rutas
+
 app.use('/api/products', productRoutes);
 app.use('/api/carts', cartRoutes);
 
-// Puerto del servidor
-const port = process.env.PORT || 8080;
 
-// Iniciar el servidor
+const port = process.env.PORT || 3000;
+
+
 app.listen(port, () => {
   console.log(`Servidor iniciado en http://localhost:${port}`);
 });
