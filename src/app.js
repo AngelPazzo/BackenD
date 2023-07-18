@@ -1,60 +1,24 @@
 import express from 'express';
-import fs from 'fs';
+import cors from 'cors';
+import morgan from 'morgan';
+import productRoutes from './routes/productsRoutes.js';
+import cartRoutes from './routes/cartsRoutes.js';
 
 const app = express();
-const port = 8080;
 
-app.use(express.urlencoded({ extended: true }));
+// Middlewares
+app.use(cors());
+app.use(morgan('dev'));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/form.html');
-});
+// Rutas
+app.use('/api/products', productRoutes);
+app.use('/api/carts', cartRoutes);
 
-app.post('/api/products', (req, res) => {
-  const { title, description, code, price, status, stock, category, thumbnails } = req.body;
-  const product = {
-    id: generateId(),
-    title,
-    description,
-    code,
-    price,
-    status,
-    stock,
-    category,
-    thumbnails: thumbnails.split(',').map(thumbnail => thumbnail.trim())
-  };
-  
-  const products = loadProductsFromFile();
-  products.push(product);
-  saveProductsToFile(products);
+// Puerto del servidor
+const port = process.env.PORT || 8080;
 
-  res.redirect('/success.html');
-});
-
+// Iniciar el servidor
 app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+  console.log(`Servidor iniciado en http://localhost:${port}`);
 });
-
-function generateId() {
-  // Implementa la lógica para generar un ID único para cada producto
-}
-
-function loadProductsFromFile() {
-  try {
-    const fileData = fs.readFileSync('productos.json', 'utf-8');
-    return JSON.parse(fileData);
-  } catch (error) {
-    console.error(`Error al cargar el archivo de productos: ${error}`);
-    return [];
-  }
-}
-
-function saveProductsToFile(products) {
-  try {
-    fs.writeFileSync('productos.json', JSON.stringify(products, null, 2));
-    console.log('Productos guardados exitosamente.');
-  } catch (error) {
-    console.error(`Error al guardar el archivo de productos: ${error}`);
-  }
-}
