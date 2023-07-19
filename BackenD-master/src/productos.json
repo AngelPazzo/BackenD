@@ -1,0 +1,67 @@
+[
+  {
+    "id": "1",
+    "title": "Producto de ejemplo",
+    "description": "Descripción del producto de ejemplo",
+    "code": "P001",
+    "price": 9.99,
+    "status": true,
+    "stock": 100,
+    "category": "Categoría de ejemplo",
+    "thumbnails": [
+      "ruta/imagen1.jpg",
+      "ruta/imagen2.jpg"
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Producto 2",
+    "description": "Descripción del producto 2",
+    "code": "P002",
+    "price": 19.99,
+    "status": true,
+    "stock": 25,
+    "category": "Categoría 2",
+    "thumbnails": [
+      "ruta/imagen3.jpg",
+      "ruta/imagen4.jpg"
+    ]
+  },
+  {
+    "id": "b4fac1a3-8f4d-46c7-80a5-71b8851345d8"
+  },
+  {
+    "id": "780ed1dc-aea8-435a-8e4e-fdd98a7adfba"
+  },
+  {
+    "id": "3fc94f7c-2e93-4cba-8a35-c8985169fa9c"
+  },
+  {
+    "id": "638dc8c7-28a4-4d74-ba18-6b80eb456a2a",
+    "title": "Producto de ejemplo",
+    "description": "Descripción del producto de ejemplo",
+    "code": "P001",
+    "price": 9.99,
+    "status": true,
+    "stock": 100,
+    "category": "Categoría de ejemplo",
+    "thumbnails": [
+      "ruta/imagen1.jpg",
+      "ruta/imagen2.jpg"
+    ]
+  },
+  {
+    "id": "5ba2521e-ba32-445c-85f4-f577cfc2f0e2",
+    "title": "Producto de ejemplo",
+    "description": "Descripción del producto de ejemplo",
+    "code": "P001",
+    "price": 9.99,
+    "status": true,
+    "stock": 100,
+    "category": "Categoría de ejemplo",
+    "thumbnails": [
+      "ruta/imagen1.jpg",
+      "ruta/imagen2.jpg"
+    ]
+  }
+]
