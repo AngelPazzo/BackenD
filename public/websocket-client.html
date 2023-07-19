@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Client</title>
+</head>
+<body>
+  <h1>WebSocket Client</h1>
+  <button onclick="sendNewProduct()">Enviar Nuevo Producto</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    function sendNewProduct() {
+      const productName = prompt('Ingrese el nombre del nuevo producto:');
+      if (productName) {
+        socket.emit('new-product', productName);
+      }
+    }
+  </script>
+</body>
+</html>
