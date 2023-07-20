@@ -1,33 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <meta charset="utf-8">
+  <title>Lista de Productos en Tiempo Real</title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
   <div class="container">
-    <h1>Lista de Productos</h1>
+    <h1>Lista de Productos en Tiempo Real</h1>
     <ul>
       {{#each products}}
-        <li>
-          <strong>Título:</strong> {{this.title}}<br>
-          <strong>Descripción:</strong> {{this.description}}<br>
-          <strong>Código:</strong> {{this.code}}<br>
-          <strong>Precio:</strong> ${{this.price}}<br>
-          <strong>Estado:</strong> {{this.status}}<br>
-          <strong>Stock:</strong> {{this.stock}}<br>
-          <strong>Categoría:</strong> {{this.category}}<br>
-          <strong>Imágenes:</strong>
-          <ul>
-            {{#each this.thumbnails}}
-              <li>{{this}}</li>
-            {{/each}}
-          </ul>
-        </li>
+      <li>
+        <strong>Título:</strong> {{title}}<br>
+        <strong>Descripción:</strong> {{description}}<br>
+        <strong>Código:</strong> {{code}}<br>
+        <strong>Precio:</strong> ${{price}}<br>
+        <strong>Estado:</strong> {{status}}<br>
+        <strong>Stock:</strong> {{stock}}<br>
+        <strong>Categoría:</strong> {{category}}<br>
+      </li>
       {{/each}}
     </ul>
+    <h2>Agregar un nuevo producto</h2>
+    <form action="/add-product" method="POST" enctype= "multipart/form-data">
+      <label for="title">Título:</label>
+      <input type="text" name="title" required><br>
+      <label for="description">Descripción:</label>
+      <input type="text" name="description" required><br>
+      <label for="code">Código:</label>
+      <input type="text" name="code" required><br>
+      <label for="price">Precio:</label>
+      <input type="number" name="price" step="0.01" required><br>
+      <label for="status">Estado:</label>
+      <input type="checkbox" name="status"><br>
+      <label for="stock">Stock:</label>
+      <input type="number" name="stock" required><br>
+      <label for="category">Categoría:</label>
+      <input type="text" name="category" required><br>
+      <input type="submit" value="Agregar Producto">
+    </form>
   </div>
 </body>
+
 </html>
+```
