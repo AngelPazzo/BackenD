@@ -4,13 +4,14 @@ import path from 'path';
 import fs from 'fs';
 import { Server } from 'socket.io';
 import expressHandlebars from 'express-handlebars';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-// Obtenemos la ruta de la carpeta actual 
-const __filename = new URL(import.meta.url).pathname;
+// Obtenemos la ruta del directorio actual
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Configurar Handlebars como motor de plantillas
@@ -26,10 +27,10 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
 // Carpeta para archivos estáticos
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta para la página de inicio
-
 app.get('/', (req, res) => {
   fs.readFile(path.join(__dirname, 'productos.json'), 'utf-8', (err, data) => {
     if (err) {
@@ -63,31 +64,13 @@ io.on('connection', (socket) => {
   socket.on('new-product', (productName) => {
     console.log(`Nuevo producto: ${productName}`);
 
-    // agrega el producto a la lista de productos
+    // Agrega la lógica para agregar el producto a la lista de productos
+
+    // Después de agregar el producto, emitir el evento a todos los clientes conectados para actualizar la lista
     io.emit('update-products', products);
   });
 
-  // eliminar producto
-  socket.on('delete-product', (productName) => {
-    console.log(`Producto eliminado: ${productName}`);
-
-    // elimina el producto de la lista de productos
-    io.emit('update-products', products);
-  });
-
-  // actualizar producto
-  socket.on('update-product', (productName) => {
-    console.log(`Producto actualizado: ${productName}`);
-
-    // actualiza el producto de la lista de productos
-    io.emit('update-products', products);
-  });
-
-  // cuando el cliente se conecta
-  socket.on('connect', () => {
-    console.log('Cliente conectado');
-  });
-
+  // Agrega la lógica para escuchar otros eventos, como eliminar un producto, etc.
 
   // Cuando un cliente se desconecta
   socket.on('disconnect', () => {
@@ -100,6 +83,16 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(`Servidor HTTP y de sockets iniciado en http://localhost:${port}`);
 });
+
+
+
+
+
+
+
+
+
+
 
 
 

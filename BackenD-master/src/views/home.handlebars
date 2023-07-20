@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-</meta>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h1>Productos</h1>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>Imagen</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each products}}
-            <tr>
-              <td>{{this.title}}</td>
-              <td>{{this.price}}</td>
-              <td><img src="{{this.thumbnail}}" alt="Imagen del producto" width="50"></td>
-            </tr>
+    <h1>Lista de Productos</h1>
+    <ul>
+      {{#each products}}
+        <li>
+          <strong>Título:</strong> {{this.title}}<br>
+          <strong>Descripción:</strong> {{this.description}}<br>
+          <strong>Código:</strong> {{this.code}}<br>
+          <strong>Precio:</strong> ${{this.price}}<br>
+          <strong>Estado:</strong> {{this.status}}<br>
+          <strong>Stock:</strong> {{this.stock}}<br>
+          <strong>Categoría:</strong> {{this.category}}<br>
+          <strong>Imágenes:</strong>
+          <ul>
+            {{#each this.thumbnails}}
+              <li>{{this}}</li>
             {{/each}}
-          </tbody>
-        </table>
-      </div>
-    </div>
+          </ul>
+        </li>
+      {{/each}}
+    </ul>
   </div>
-
 </body>
 </html>
-```
