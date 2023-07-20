@@ -1,0 +1,21 @@
+# Ignorar archivos y directorios generados por el entorno de desarrollo
+/node_modules
+/dist
+/.vscode
+/.idea
+
+# Ignorar archivos de respaldo y temporales
+*.log
+*.bak
+*.tmp
+
+# Ignorar archivos sensibles con información confidencial
+.env
+
+# Ignorar archivos de configuración de editor
+/.editorconfig
+/.eslintrc
+
+# Ignorar archivos de configuración de entorno
+/.env
+/.env.example

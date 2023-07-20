@@ -39,7 +39,9 @@ router.post('/', (req, res) => {
   const responseProduct = { ...product };
   delete responseProduct.id;
   res.status(201).json(responseProduct);
-});
+}
+
+);
 
 router.put('/:id', (req, res) => {
   const id = req.params.id;
@@ -61,16 +63,20 @@ router.put('/:id', (req, res) => {
   } else {
     res.status(404).json({ error: 'El producto no existe' });
   }
-});
+}
+
+);
 
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
   const result = productManager.deleteProduct(id);
   if (result) {
-    res.json({ message: 'Producto eliminado correctamente' });
+    res.json({ message: 'Producto eliminado' });
   } else {
     res.status(404).json({ error: 'El producto no existe' });
   }
-});
+}
+
+);
 
 export default router;

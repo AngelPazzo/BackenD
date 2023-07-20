@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+</meta>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Productos</h1>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Imagen</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each products}}
+            <tr>
+              <td>{{this.title}}</td>
+              <td>{{this.price}}</td>
+              <td><img src="{{this.thumbnail}}" alt="Imagen del producto" width="50"></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

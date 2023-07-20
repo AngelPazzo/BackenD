@@ -1,29 +1,35 @@
 import fs from 'fs';
+import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
 
 class CartManager {
   constructor() {
-    this.filePath = './src/carrito.json';
-    this.carts = this.loadCartsFromFile();
+    this.carts = [];
+    this.loadCartsFromFile();
   }
 
   loadCartsFromFile() {
-    try {
-      const fileData = fs.readFileSync(this.filePath, 'utf-8');
-      return JSON.parse(fileData);
-    } catch (error) {
-      console.error(`Error al cargar el archivo de carritos: ${error}`);
-      return [];
+    fs.readFile(path.join(__dirname, 'carritos.json'), 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error al leer el archivo carritos.json:', err);
+        return;
+      }
+
+      this.carts = JSON.parse(data);
     }
+    );
   }
 
   saveCartsToFile() {
-    try {
-      fs.writeFileSync(this.filePath, JSON.stringify(this.carts, null, 2));
-      console.log('Carritos guardados exitosamente.');
-    } catch (error) {
-      console.error(`Error al guardar el archivo de carritos: ${error}`);
+    fs.writeFile(path.join(__dirname, 'carritos.json'), JSON.stringify(this.carts, null, 2), (err) => {
+      if (err) {
+        console.error('Error al escribir el archivo carritos.json:', err);
+      }
     }
+    );
   }
 
   getCarts() {
@@ -37,30 +43,13 @@ class CartManager {
   createCart() {
     const cart = {
       id: uuidv4(),
+      timestamp: Date.now(),
       products: []
     };
     this.carts.push(cart);
     this.saveCartsToFile();
     return cart;
   }
-
-  addProductToCart(cartId, productId, quantity) {
-    const cart = this.getCartById(cartId);
-    if (cart) {
-      const existingProduct = cart.products.find((product) => product.product === productId);
-      if (existingProduct) {
-        existingProduct.quantity += quantity;
-      } else {
-        cart.products.push({ product: productId, quantity });
-      }
-      this.saveCartsToFile();
-      return cart.products;
-    } else {
-      throw new Error('El carrito no existe');
-    }
-  }
-
-  
 }
 
 export default CartManager;

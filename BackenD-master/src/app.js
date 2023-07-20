@@ -1,81 +1,110 @@
-import http from 'http';
 import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
+import http from 'http';
 import path from 'path';
-import expressWs from 'express-ws';
-import expressHandlebars from 'express-handlebars';
 import fs from 'fs';
 import { Server } from 'socket.io';
-import productRoutes from './routes/productsRoutes.js';
-import cartRoutes from './routes/cartsRoutes.js';
+import expressHandlebars from 'express-handlebars';
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const viewsPath = path.join(new URL('.', import.meta.url).pathname, 'views');
-const publicPath = path.join(new URL('.', import.meta.url).pathname, 'public');  
+// Obtenemos la ruta de la carpeta actual 
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
 
+// Configurar Handlebars como motor de plantillas
 const hbs = expressHandlebars.create({
   extname: '.handlebars',
   defaultLayout: 'main',
-  layoutsDir: path.join(viewsPath, 'layouts'),
-  partialsDir: path.join(viewsPath, 'partials'),
+  layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  partialsDir: path.join(__dirname, 'views', 'partials'),
 });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.set('views', viewsPath);
+app.set('views', path.join(__dirname, 'views'));
 
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.static(publicPath));
+// Carpeta para archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Ruta para la página de inicio
 
 app.get('/', (req, res) => {
-  fs.readFile(path.join(viewsPath, 'products.json'), 'utf-8', (err, data) => {
+  fs.readFile(path.join(__dirname, 'productos.json'), 'utf-8', (err, data) => {
     if (err) {
-      console.error('Error al leer el archivo products.json:', err);
+      console.error('Error al leer el archivo productos.json:', err);
       return res.status(500).json({ error: 'Error interno del servidor' });
     }
 
     const products = JSON.parse(data);
-
     res.render('home', { products });
   });
 });
 
+// Ruta para la vista con websockets
 app.get('/realtimeproducts', (req, res) => {
-  fs.readFile(path.join(viewsPath, 'products.json'), 'utf-8', (err, data) => {
+  fs.readFile(path.join(__dirname, 'productos.json'), 'utf-8', (err, data) => {
     if (err) {
-      console.error('Error al leer el archivo products.json:', err);
+      console.error('Error al leer el archivo productos.json:', err);
       return res.status(500).json({ error: 'Error interno del servidor' });
     }
 
     const products = JSON.parse(data);
-
     res.render('realTimeProducts', { products });
   });
 });
 
-// Ruta para agregar un nuevo producto mediante petición POST
-app.post('/api/products', (req, res) => {
-  // ... Lógica para agregar un nuevo producto ...
+// Configurar websockets
+io.on('connection', (socket) => {
+  console.log('Nuevo cliente conectado');
 
-  // Después de agregar el producto, emite el evento 'new-product' con los datos del producto
-  const newProduct = { /* Datos del nuevo producto */ };
-  io.emit('new-product', newProduct);
+  // Escuchar el evento para agregar un nuevo producto
+  socket.on('new-product', (productName) => {
+    console.log(`Nuevo producto: ${productName}`);
 
-  // Envía una respuesta a la petición HTTP
-  res.status(201).json({ message: 'Producto agregado exitosamente' });
+    // agrega el producto a la lista de productos
+    io.emit('update-products', products);
+  });
+
+  // eliminar producto
+  socket.on('delete-product', (productName) => {
+    console.log(`Producto eliminado: ${productName}`);
+
+    // elimina el producto de la lista de productos
+    io.emit('update-products', products);
+  });
+
+  // actualizar producto
+  socket.on('update-product', (productName) => {
+    console.log(`Producto actualizado: ${productName}`);
+
+    // actualiza el producto de la lista de productos
+    io.emit('update-products', products);
+  });
+
+  // cuando el cliente se conecta
+  socket.on('connect', () => {
+    console.log('Cliente conectado');
+  });
+
+
+  // Cuando un cliente se desconecta
+  socket.on('disconnect', () => {
+    console.log('Cliente desconectado');
+  });
 });
-
-app.use('/api/products', productRoutes);
-app.use('/api/carts', cartRoutes);
 
 const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
   console.log(`Servidor HTTP y de sockets iniciado en http://localhost:${port}`);
 });
+
+
+
+
+
+
+
+

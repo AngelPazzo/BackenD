@@ -1,28 +1,32 @@
 import fs from 'fs';
+import path from 'path';
+
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
 
 class ProductManager {
   constructor() {
-    this.filePath = './src/productos.json';
-    this.products = this.loadProductsFromFile();
+    this.products = [];
+    this.loadProductsFromFile();
   }
 
   loadProductsFromFile() {
-    try {
-      const fileData = fs.readFileSync(this.filePath, 'utf-8');
-      return JSON.parse(fileData);
-    } catch (error) {
-      console.error(`Error al cargar el archivo de productos: ${error}`);
-      return [];
-    }
+    fs.readFile(path.join(__dirname, 'productos.json'), 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error al leer el archivo productos.json:', err);
+        return;
+      }
+
+      this.products = JSON.parse(data);
+    });
   }
 
   saveProductsToFile() {
-    try {
-      fs.writeFileSync(this.filePath, JSON.stringify(this.products, null, 2));
-      console.log('Productos guardados exitosamente.');
-    } catch (error) {
-      console.error(`Error al guardar el archivo de productos: ${error}`);
-    }
+    fs.writeFile(path.join(__dirname, 'productos.json'), JSON.stringify(this.products, null, 2), (err) => {
+      if (err) {
+        console.error('Error al escribir el archivo productos.json:', err);
+      }
+    });
   }
 
   getProducts(limit) {
@@ -45,11 +49,12 @@ class ProductManager {
   updateProduct(id, updatedProduct) {
     const index = this.products.findIndex((product) => product.id === id);
     if (index !== -1) {
-      this.products[index] = { ...this.products[index], ...updatedProduct };
+      this.products[index] = updatedProduct;
       this.saveProductsToFile();
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
   deleteProduct(id) {
@@ -58,13 +63,10 @@ class ProductManager {
       this.products.splice(index, 1);
       this.saveProductsToFile();
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
-
-  
-
-  
 }
 
 export default ProductManager;

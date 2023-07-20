@@ -7,7 +7,8 @@ const cartManager = new CartManager();
 router.get('/', (req, res) => {
   const carts = cartManager.getCarts();
   res.json(carts);
-});
+}
+);
 
 router.get('/:cid', (req, res) => {
   const cid = req.params.cid;
@@ -17,12 +18,14 @@ router.get('/:cid', (req, res) => {
   } else {
     res.status(404).json({ error: 'El carrito no existe' });
   }
-});
+}
+);
 
 router.post('/', (req, res) => {
   const cart = cartManager.createCart();
   res.status(201).json(cart);
-});
+}
+);
 
 router.post('/:cid/product/:pid', (req, res) => {
   const cid = req.params.cid;
@@ -42,6 +45,7 @@ router.post('/:cid/product/:pid', (req, res) => {
   } else {
     res.status(404).json({ error: 'El carrito no existe' });
   }
-});
+}
+);
 
 export default router;

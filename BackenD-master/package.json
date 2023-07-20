@@ -1,5 +1,5 @@
 {
-    "name": "backend-tp2",
+    "name": "backend-master",
     "version": "1.0.0",
     "description": "",
     "main": "src/app.js",
@@ -14,7 +14,7 @@
         "cors": "^2.8.5",
         "ejs": "^3.1.9",
         "express": "^4.18.2",
-        "express-handlebars": "^7.0.7",
+        "express-handlebars": "^7.1.0",
         "express-ws": "^5.0.2",
         "morgan": "^1.10.0",
         "socket.io": "^4.7.1",
